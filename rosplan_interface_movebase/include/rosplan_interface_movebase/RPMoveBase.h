@@ -31,6 +31,7 @@ namespace KCL_rosplan {
 
 		mongodb_store::MessageStoreProxy message_store;
 		actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> action_client;
+		std::string name;
 		ros::Publisher action_feedback_pub;
 		ros::ServiceClient update_knowledge_client;
 		ros::ServiceClient clear_costmaps_client;
@@ -38,7 +39,7 @@ namespace KCL_rosplan {
 	public:
 
 		/* constructor */
-		RPMoveBase(ros::NodeHandle &nh, std::string &actionserver);
+		RPMoveBase(ros::NodeHandle &nh, std::string &actionserver, std::string &turtlebot_name);
 
 		/* listen to and process action_dispatch topic */
 		void dispatchCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg);
