@@ -12,7 +12,10 @@
 #include "PlanningEnvironment.h"
 #include "PDDLProblemGenerator.h"
 #include "PlanParser.h"
+#include "POPFPlanParser.h"
 #include "PlanDispatcher.h"
+#include "SimplePlanDispatcher.h"
+#include "EsterelPlanDispatcher.h"
 
 #ifndef KCL_planning_system
 #define KCL_planning_system
@@ -61,11 +64,11 @@ namespace KCL_rosplan {
 
 		/* planning */
 		PDDLProblemGenerator pddl_problem_generator;
-		PlanParser plan_parser;
+		POPFPlanParser plan_parser;
 		void publishFilter();
 	
-		/* dispatch */
-		PlanDispatcher plan_dispatcher;
+		/* dispatch class */
+		PlanDispatcher* plan_dispatcher;
 
 		/* ROS interface */
 		ros::Publisher filter_publisher;

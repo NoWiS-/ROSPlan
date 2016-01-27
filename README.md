@@ -9,11 +9,11 @@ Get the prerequisites:
 
 (for Indigo)
 ```sh
-sudo apt-get install flex ros-indigo-mongodb-store ros-indigo-tf2-bullet
+sudo apt-get install flex ros-indigo-mongodb-store ros-indigo-tf2-bullet freeglut3-dev
 ```
 (for Hydro)
 ```sh
-sudo apt-get install flex ros-hydro-mongodb-store ros-hydro-tf2-bullet
+sudo apt-get install flex ros-hydro-mongodb-store ros-hydro-tf2-bullet freeglut3-dev
 ```
 Select a catkin workspace or create a new one:
 ```sh
@@ -46,15 +46,7 @@ To run the demo first follow the installation instructions and quick-start guide
 
 [Turtlebot Simulator](http://wiki.ros.org/turtlebot_simulator) 
 
-Then source the ROSPlan workspace and run:
-```sh
-roslaunch rosplan_demos turtlebot.launch
-sh src/rosplan_demos/scripts/turtlebot_explore.bash
-```
-
-`turtlebot.launch` will start the turtlebot simulation, rviz, and ROSPlan.
-
-`turtlebot_explore.bash` calls a ROSPlan component service to generate a roadmap (you can see in rviz); adds exploration goals; and then calls the planning system service.
+Then source the ROSPlan workspace and follow the "Getting Started" guide on our [ROSPlan Wiki Page](https://github.com/KCL-Planning/ROSPlan/wiki).
 
 The turtlebot will move around the waypoints, exploring the environment. You should see output from the planning system, something like:
 ```
@@ -69,5 +61,13 @@ KCL: (PS) Feedback received [0,action achieved]
 ```
 <img src="http://cdn.makeagif.com/media/5-27-2015/kSJr9g.gif" alt="Turtlebot Demo" width="60%"/>
 
+### Related repositories:
 
-For more detailed information about this demo, please visit our [ROSPlan Wiki Page](https://github.com/KCL-Planning/ROSPlan/wiki), and follow tutorial pages on the right.
+Automatic localisation and docking action interfaces with the Turtlebot 2 (Kobuki base) 
+https://github.com/KCL-Planning/ROSPlan_interface_Turtlebot2
+
+Integration with the Component Oriented Layered-base Architecture for Autonomy (COLA2). Developed in the Research Center of Underwater Robotics (CIRS) in the University of Girona (UdG). This architecture is used to control the Autonomous Underwater Vehicles (AUVs) developed in this center. (https://bitbucket.org/udg_cirs/cola2)
+https://github.com/KCL-Planning/ROSPlan_interface_COLA2
+
+Action interfaces for piloting a quadrotor from Jindrich Vodrazka, (takeoff, land, fly_square, and fly_waypoint).
+https://github.com/fairf4x/ROSPlan_interface_quadrotor

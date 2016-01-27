@@ -1,4 +1,4 @@
-#include "rosplan_planning_system/PlanParser.h"
+#include "rosplan_planning_system/POPFPlanParser.h"
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -8,7 +8,7 @@
 
 namespace KCL_rosplan {
 
-	void PlanParser::reset() {
+	void POPFPlanParser::reset() {
 		filter_objects.clear();
 		filter_attributes.clear();
 		knowledge_filter.clear();
@@ -22,7 +22,7 @@ namespace KCL_rosplan {
 	/**
 	 * parses the output of popf, generating a list of action messages.
 	 */
-	void PlanParser::preparePlan(std::string &dataPath, PlanningEnvironment &environment, size_t freeActionID) {
+	void POPFPlanParser::preparePlan(std::string &dataPath, PlanningEnvironment &environment, size_t freeActionID) {
 
 		// trim the end of any existing plan
 		while(action_list.size() > freeActionID)
@@ -144,7 +144,7 @@ namespace KCL_rosplan {
 	/**
 	 * processes the parameters of a single PDDL action into an ActionDispatch message
 	 */
-	void PlanParser::processPDDLParameters(rosplan_dispatch_msgs::ActionDispatch &msg, std::vector<std::string> &params, PlanningEnvironment &environment) {
+	void POPFPlanParser::processPDDLParameters(rosplan_dispatch_msgs::ActionDispatch &msg, std::vector<std::string> &params, PlanningEnvironment &environment) {
 
 		// find the correct PDDL operator definition
 		std::map<std::string,std::vector<std::string> >::iterator ait;
@@ -191,7 +191,7 @@ namespace KCL_rosplan {
 	/**
 	 * populates the knowledge filter messages
 	 */
-	void PlanParser::generateFilter(PlanningEnvironment &environment) {
+	void POPFPlanParser::generateFilter(PlanningEnvironment &environment) {
 
 		knowledge_filter.clear();
 

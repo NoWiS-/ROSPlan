@@ -21,6 +21,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS roscpp rospy std_msgs std_srvs diagnostic_msgs rosplan_dispatch_msgs rosplan_knowledge_msgs
+  DEPENDS
 )
 
 ###########
@@ -32,6 +33,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   include
 )
+
+find_package(FLEX REQUIRED)
 
 ## visualisation
 find_package(OpenGL REQUIRED)
@@ -75,8 +78,10 @@ set(VAL_SOURCES
 ## planning system sources
 set(PLANNING_SOURCES
 	src/PlanningSystem.cpp
-	src/PlanDispatcher.cpp
-	src/PlanParser.cpp
+	src/SimplePlanDispatcher.cpp
+	src/EsterelPlanDispatcher.cpp
+	src/POPFPlanParser.cpp
+	src/CFFPlanParser.cpp
 	src/PDDLProblemGenerator.cpp
 	src/PlanningEnvironment.cpp)
 
@@ -86,3 +91,6 @@ add_dependencies(planner ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries against which to link a library or executable target
 target_link_libraries(planner ${catkin_LIBRARIES})
+
+## Declare libraries
+add_library(${PROJECT_NAME} ${PLANNING_SOURCES} ${VAL_SOURCES})
