@@ -1,0 +1,40 @@
+<launch>
+
+  <!-- nao simulation -->
+  <include file="$(find nao_description)/launch/upload_nao.launch" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="/home/nowis/dev/ROSPlan/src/ROSPlan/rosplan_demos/launch/playground.world"/>
+    <arg name="paused" value="true"/>
+  </include>
+  <arg name="use_pid" value="true"/>
+  <group if="$(arg use_pid)">
+    <rosparam file="$(find nao_gazebo_plugin)/config/gazebo_ros_control_params.yaml" command="load"/>
+  </group>
+
+  <!-- Call Nao Robot Trajectory Controller -->
+  <include file="$(find nao_control)/launch/nao_control_trajectory.launch"/>
+
+  <!-- Load model -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -x -0 -y 0 -z 0.435 -model nao_v40" />
+
+  <!-- visualisation -->
+  <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find rosplan_demos)/rviz/turtlebot.rviz">-->
+  <!--</node>-->
+
+  <!-- Map and Planning -->
+  <arg name="map_file" default="$(env TURTLEBOT_GAZEBO_MAP_FILE)"/>
+  <!--<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />-->
+  <include file="$(find footstep_planner)/launch/rviz_footstep_planning.launch" />
+  <!--<include file="$(find footstep_planner)/launch/footstep_navigation_nao.launch" />-->
+  <include file="$(find footstep_planner)/launch/fake_loc_from_odom.launch" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find footstep_planner)/maps/sample.yaml" />
+  <include file="$(find footstep_planner)/launch/footstep_navigation_nao.launch" />
+
+
+
+
+  <!-- ROSPlan -->
+  <include file="$(find rosplan_planning_system)/launch/interfaced_planning_system.launch" >
+  </include>
+
+</launch>
